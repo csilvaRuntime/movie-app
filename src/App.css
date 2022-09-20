@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.Poster {
+  height: 400px;
+}
+
+.MovieList {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
