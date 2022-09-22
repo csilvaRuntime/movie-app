@@ -7,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import AdbIcon from "@mui/icons-material/Adb";
 import SearchMovies from "./SearchMovies";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,7 +41,6 @@ const Header = () => {
           >
             YAMA
           </Typography>
-          <FontAwesomeIcon icon="fa-solid fa-camera-movie" />
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -74,7 +71,6 @@ const Header = () => {
               }}
             ></Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap

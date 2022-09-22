@@ -5,8 +5,10 @@ import {
   getPersonMovieCredits,
 } from "../shared/values";
 import { useParams } from "react-router-dom";
-import ShowMovies from "../PopularMovies/ShowMovies";
+import Movie from "../Movie";
 import TvShow from "../TvShow";
+import Header from "../Header";
+import Avatar from "../../img/Avatar.png";
 
 const PersonDetails = () => {
   const { id } = useParams();
@@ -31,22 +33,38 @@ const PersonDetails = () => {
   console.log("personTvCredits", personTvCredits);
 
   return (
-    <div className="App" key={personDetails.id}>
-      <h3>{personDetails.name}</h3>
-      <img
-        className="Poster"
-        src={`https://image.tmdb.org/t/p/w500/${personDetails.profile_path}`}
-        alt="movie poster"
-      />
-      <div className="boxed">
-        <p>{personDetails.biography}</p>
+    <div>
+      <Header />
+      <div className="container" key={personDetails.id}>
+        <div>
+          <img
+            class="Poster"
+            src={
+              personDetails.profile_path
+                ? `https://image.tmdb.org/t/p/w500/${personDetails.profile_path}`
+                : Avatar
+            }
+            alt="person poster"
+          />
+        </div>
+        <div className="Text-Person">
+          <h1>{personDetails.name}</h1>
+          <p className="overview">
+            <strong>Biography: </strong>
+            {personDetails.biography}
+          </p>
+        </div>
       </div>
-      <div>
-        <h1>Movies</h1>
-        <ShowMovies movies={personMovieCredits} />
+      <h1>Movies</h1>
+      <div className="side-container">
+        <div className="MovieList">
+          {personMovieCredits.map((movie) => (
+            <Movie movie={movie} />
+          ))}
+        </div>
       </div>
-      <div>
-        <h1>TV Shows</h1>
+      <h1>TV Shows</h1>
+      <div className="side-container">
         <div className="MovieList">
           {personTvCredits.map((tvShow) => (
             <TvShow tvShow={tvShow} />

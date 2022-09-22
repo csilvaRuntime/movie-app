@@ -21,24 +21,27 @@ const MovieDetails = () => {
   return (
     <div>
       <Header />
-      <div className="App" key={movieDetails.id}>
-        <h3>{movieDetails.title}</h3>
-        <img
-          className="Poster"
-          src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
-          alt="movie poster"
-        />
-        <div className="boxed">
-          <p>{movieDetails.overview}</p>
-        </div>
+      <div className="container" key={movieDetails.id}>
         <div>
-          <h1>Cast</h1>
-          <div className="MovieList CastList">
-            {movieCredits.map((person) => (
-              <Person person={person} />
-            ))}
-          </div>
+          <img
+            class="PosterFocus"
+            src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
+            alt="movie poster"
+          />
         </div>
+        <div className="Text">
+          <h1>{movieDetails.title}</h1>
+          <p className="overview">
+            <strong>Overview: </strong>
+            {movieDetails.overview}
+          </p>
+        </div>
+      </div>
+      <h1>Cast</h1>
+      <div className="MovieList CastList">
+        {movieCredits.map((person) => (
+          <Person person={person} />
+        ))}
       </div>
     </div>
   );

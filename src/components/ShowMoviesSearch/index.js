@@ -35,23 +35,35 @@ export function ShowMoviesSearch() {
     <div>
       <Header />
       <h1 className="Title">Movies</h1>
-      <div className="MovieList">
-        {topFiveMoviesSearch.map((movie) => (
-          <Movie movie={movie} />
-        ))}
-      </div>
+      {topFiveMoviesSearch.length > 0 ? (
+        <div className="MovieList">
+          {topFiveMoviesSearch.map((movie) => (
+            <Movie movie={movie} />
+          ))}
+        </div>
+      ) : (
+        <p>We couldn't find any movies for {input}</p>
+      )}
       <h1 className="Title">TV Shows</h1>
-      <div className="MovieList">
-        {topFiveTvShowsSearch.map((tvShow) => (
-          <TvShow tvShow={tvShow} />
-        ))}
-      </div>
+      {topFiveTvShowsSearch.length > 0 ? (
+        <div className="MovieList">
+          {topFiveTvShowsSearch.map((tvShow) => (
+            <TvShow tvShow={tvShow} />
+          ))}
+        </div>
+      ) : (
+        <p>We couldn't find any Tv Shows for {input}</p>
+      )}
       <h1 className="Title">People</h1>
-      <div className="MovieList">
-        {topFivePeopleSearch.map((person) => (
-          <Person person={person} />
-        ))}
-      </div>
+      {topFivePeopleSearch.length > 0 ? (
+        <div className="MovieList">
+          {topFivePeopleSearch.map((person) => (
+            <Person person={person} />
+          ))}
+        </div>
+      ) : (
+        <p>We couldn't find any Person for {input}</p>
+      )}
     </div>
   );
 }
