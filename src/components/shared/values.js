@@ -16,12 +16,15 @@ export function getMovieDetails(movie_id, setmovieDetails) {
     .catch(console.error);
 }
 
-export async function getMoviesSearch(query, setMoviesSearch) {
-  await fetch(
+export function getMoviesSearch(query, setMoviesSearch, setLoading) {
+  fetch(
     `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`
   )
     .then((response) => response.json())
-    .then((data) => setMoviesSearch(data.results))
+    .then((data) => {
+      setLoading(false);
+      setMoviesSearch(data.results);
+    })
     .catch(console.error);
 }
 
@@ -70,20 +73,30 @@ export function getPersonDetails(person_id, setPersonDetails) {
     .catch(console.error);
 }
 
-export function getPersonTvCredits(person_id, setPersonTvCredits) {
+export function getPersonTvCredits(person_id, setPersonTvCredits, setLoading) {
   fetch(
     `https://api.themoviedb.org/3/person/${person_id}/tv_credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
   )
     .then((response) => response.json())
-    .then((data) => setPersonTvCredits(data.cast))
+    .then((data) => {
+      setLoading(false);
+      setPersonTvCredits(data.cast);
+    })
     .catch(console.error);
 }
 
-export function getPersonMovieCredits(person_id, setPersonMovieCredits) {
+export function getPersonMovieCredits(
+  person_id,
+  setPersonMovieCredits,
+  setLoading
+) {
   fetch(
     `https://api.themoviedb.org/3/person/${person_id}/movie_credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
   )
     .then((response) => response.json())
-    .then((data) => setPersonMovieCredits(data.cast))
+    .then((data) => {
+      setLoading(false);
+      setPersonMovieCredits(data.cast);
+    })
     .catch(console.error);
 }

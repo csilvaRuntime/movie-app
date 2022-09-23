@@ -9,9 +9,17 @@ import Movie from "../Movie";
 import TvShow from "../TvShow";
 import Header from "../Header";
 import Avatar from "../../img/Avatar.png";
+import CircularProgress from "@mui/material/CircularProgress";
+import Pages from "../shared/Pages";
 
 const PersonDetails = () => {
   const { id } = useParams();
+  const [loadingMovies, setLoadingMovies] = useState(true);
+  const [loadingTvShows, setLoadingTvShows] = useState(true);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage] = useState(5);
+
   const [personDetails, setPersonDetails] = useState({});
 
   useEffect(() => {
@@ -21,16 +29,24 @@ const PersonDetails = () => {
   const [personTvCredits, setPersonTvCredits] = useState([]);
 
   useEffect(() => {
-    getPersonTvCredits(id, setPersonTvCredits);
+    getPersonTvCredits(id, setPersonTvCredits, setLoadingTvShows);
   }, [id]);
 
   const [personMovieCredits, setPersonMovieCredits] = useState([]);
 
   useEffect(() => {
-    getPersonMovieCredits(id, setPersonMovieCredits);
+    getPersonMovieCredits(id, setPersonMovieCredits, setLoadingMovies);
   }, [id]);
 
-  console.log("personTvCredits", personTvCredits);
+  const indexLastRecord = currentPage * recordsPerPage;
+  const indexFirstRecord = indexLastRecord - recordsPerPage;
+
+  const currentRecords = personMovieCredits.slice(
+    indexFirstRecord,
+    indexLastRecord
+  );
+
+  const numberPages = Math.ceil(personMovieCredits.length / recordsPerPage);
 
   return (
     <div>
@@ -56,21 +72,39 @@ const PersonDetails = () => {
         </div>
       </div>
       <h1>Movies</h1>
-      <div className="side-container">
-        <div className="MovieList">
-          {personMovieCredits.map((movie) => (
-            <Movie movie={movie} />
-          ))}
+      {loadingMovies ? (
+        <CircularProgress />
+      ) : (
+        <div>
+          <div className="MovieList">
+            {currentRecords.map((movie) => (
+              <Movie movie={movie} />
+            ))}
+          </div>
+          <Pages
+            numberPages={numberPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
-      </div>
+      )}
       <h1>TV Shows</h1>
-      <div className="side-container">
-        <div className="MovieList">
-          {personTvCredits.map((tvShow) => (
-            <TvShow tvShow={tvShow} />
-          ))}
+      {loadingTvShows ? (
+        <CircularProgress />
+      ) : (
+        <div className="side-container">
+          <div className="MovieList">
+            {personTvCredits.map((tvShow) => (
+              <TvShow tvShow={tvShow} />
+            ))}
+          </div>
+          <Pages
+            numberPages={numberPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </div>
-      </div>
+      )}
     </div>
   );
 };
